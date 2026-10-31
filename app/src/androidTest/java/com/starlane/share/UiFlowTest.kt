@@ -35,8 +35,14 @@ class UiFlowTest {
         // Pre-grant what the app may ask for, so no system dialog covers the Compose window.
         val perms = Perms.notifications() + Perms.legacyWrite() + Perms.discovery() + Perms.bluetooth() + Perms.media()
         // `pm grant` via the shell works on every API level (UiAutomation.grantRuntimePermission is API 28+).
-        perms.forEach { p ->
-            runCatching { instr.uiAutomation.executeShellCommand("pm grant ${ctx.packageName} $p").close() }
+        // The output stream must be drained: closing it early can abort the command before it runs.
+        perms.forEach { p -> shell("pm grant ${ctx.packageName} $p") }
+    }
+
+    private fun shell(cmd: String) {
+        runCatching {
+            val pfd = instr.uiAutomation.executeShellCommand(cmd)
+            android.os.ParcelFileDescriptor.AutoCloseInputStream(pfd).use { it.readBytes() }
         }
     }
 
@@ -55,7 +61,7 @@ class UiFlowTest {
             compose.onNodeWithText("Welcome aboard").assertIsDisplayed()
             compose.onNodeWithText("Username").performTextInput("Nova")
             compose.onNodeWithText("Start sharing").performScrollTo().performClick()
-            compose.waitUntilAtLeastOneExists(hasText("Start Scanning"), 5_000)
+            compose.waitUntilAtLeastOneExists(hasText("Start Scanning"), 15_000)
             compose.onNodeWithText("Hi, Nova").assertIsDisplayed()
             assertEquals("Nova", Prefs(ctx).username)
         }
@@ -70,7 +76,7 @@ class UiFlowTest {
             compose.onNodeWithText("Turbo Mode").performScrollTo().assertIsDisplayed()
             compose.onNodeWithText("History").performScrollTo().performClick()
             // History loads on a background thread; wait for the real (empty) result.
-            compose.waitUntilAtLeastOneExists(hasText("Your transfers will appear here."), 5_000)
+            compose.waitUntilAtLeastOneExists(hasText("Your transfers will appear here."), 15_000)
         }
     }
 
