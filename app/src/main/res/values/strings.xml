@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Starlane Share</string>
+    <string name="tagline">Fast, private, offline sharing</string>
+
+    <!-- Units & formats -->
+    <string name="unit_b">%s B</string>
+    <string name="unit_kb">%s KB</string>
+    <string name="unit_mb">%s MB</string>
+    <string name="unit_gb">%s GB</string>
+    <string name="unit_per_second">%s/s</string>
+    <string name="eta_unknown">—</string>
+    <string name="duration_hm">%1$s h %2$s min</string>
+    <string name="duration_ms">%1$s min %2$s s</string>
+    <string name="duration_s">%s s</string>
+    <plurals name="files_count">
+        <item quantity="one">%d file</item>
+        <item quantity="other">%d files</item>
+    </plurals>
+    <plurals name="apps_count">
+        <item quantity="one">%d app</item>
+        <item quantity="other">%d apps</item>
+    </plurals>
+    <plurals name="devices_found">
+        <item quantity="one">%d device nearby</item>
+        <item quantity="other">%d devices nearby</item>
+    </plurals>
+
+    <!-- Common actions -->
+    <string name="action_cancel">Cancel</string>
+    <string name="action_disconnect">Disconnect</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_review">Review</string>
+    <string name="action_reject">Reject</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_send">SEND</string>
+    <string name="action_receive">RECEIVE</string>
+    <string name="action_save">Save</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_back">Back</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Resume</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_open">Open</string>
+    <string name="action_install">Install</string>
+    <string name="action_copy_info">Copy info</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_select_all">Select all</string>
+    <string name="action_clear_selection">Clear selection</string>
+    <string name="action_grant">Grant access</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_close">Close</string>
+    <string name="action_remove">Remove</string>
+    <string name="copied">Copied</string>
+
+    <!-- Onboarding -->
+    <string name="onb_title">Welcome aboard</string>
+    <string name="onb_subtitle">Choose the name nearby people will see when you share.</string>
+    <string name="onb_username">Username</string>
+    <string name="onb_username_hint">At least 2 characters</string>
+    <string name="onb_nickname">Device nickname (optional)</string>
+    <string name="onb_icon">Device icon</string>
+    <string name="onb_start">Start sharing</string>
+    <string name="onb_privacy">Transfers stay on your local network or a direct link between phones. Nothing is uploaded.</string>
+
+    <!-- Home -->
+    <string name="home_hello">Hi, %s</string>
+    <string name="home_start_scanning">Start Scanning</string>
+    <string name="home_scan_hint">Find nearby phones running Starlane Share</string>
+    <string name="home_receive">Receive</string>
+    <string name="home_receive_hint">Become visible and wait</string>
+    <string name="home_send_files">Send files</string>
+    <string name="home_send_hint">Pick files for the connected device</string>
+    <string name="home_history">History</string>
+    <string name="home_devices">Devices</string>
+    <string name="home_usb">USB cable</string>
+    <string name="home_settings">Settings</string>
+    <string name="home_waiting">Visible as “%s” — waiting for a sender…</string>
+    <string name="home_stop_waiting">Stop waiting</string>
+    <string name="home_shared_pending">%s ready to share — connect to a device</string>
+
+    <!-- Status panel -->
+    <string name="status_title">Connection</string>
+    <string name="status_not_connected">Not connected</string>
+    <string name="status_connected_to">Connected to %s</string>
+    <string name="status_connecting">Connecting to %s…</string>
+    <string name="status_method">Method</string>
+    <string name="status_quality">Link</string>
+    <string name="status_signal">%1$d dBm · %2$d Mbps</string>
+    <string name="status_rtt">Latency %s ms</string>
+    <string name="status_quality_na">Not reported by this link</string>
+    <string name="status_speed">Speed</string>
+    <string name="status_avg">Average</string>
+    <string name="status_transferred">Transferred</string>
+    <string name="status_remaining">Remaining</string>
+    <string name="status_idle">No active transfer</string>
+    <string name="status_encrypted">Encrypted · %s</string>
+    <string name="status_lanes">%d parallel lanes</string>
+
+    <!-- Methods -->
+    <string name="method_LAN">Wi-Fi (same network)</string>
+    <string name="method_WIFI_DIRECT">Wi-Fi Direct</string>
+    <string name="method_HOTSPOT">Hotspot</string>
+    <string name="method_BLUETOOTH">Bluetooth (slower)</string>
+    <string name="method_USB">USB cable</string>
+    <string name="method_LOOPBACK">Loopback</string>
+
+    <!-- Turbo -->
+    <string name="turbo_mode">Turbo Mode</string>
+    <string name="turbo_desc">Uses parallel lanes, larger buffers and the fastest cipher both phones support.</string>
+    <string name="turbo_active">Turbo active</string>
+    <string name="turbo_off">Turbo off</string>
+    <string name="turbo_limited">Turbo limited</string>
+    <string name="turbo_unavailable">Turbo unavailable</string>
+    <string name="turbo_note_LOCAL_LOW_END">This phone has limited memory, so Turbo is disabled to keep it responsive.</string>
+    <string name="turbo_note_PEER_NO_TURBO">The other phone has Turbo turned off.</string>
+    <string name="turbo_note_PEER_LOW_END">The other phone has limited resources; conservative settings are used.</string>
+    <string name="turbo_note_LINK_BLUETOOTH">Bluetooth bandwidth is the limit; Turbo cannot speed it up.</string>
+    <string name="turbo_note_LINK_USB">USB accessory mode uses one channel; Turbo has no extra effect.</string>
+    <string name="turbo_note_NONE"></string>
+
+    <!-- Discovery -->
+    <string name="disc_title">Nearby</string>
+    <string name="disc_scanning">Scanning the neighbourhood…</string>
+    <string name="disc_none">No devices yet. Ask your friend to open Starlane Share and tap Start Scanning or Receive.</string>
+    <string name="disc_you">You</string>
+    <string name="disc_drag_hint">Drag a device to yourself, or tap it</string>
+    <string name="disc_stop">Stop scanning</string>
+    <string name="disc_selected">Selected: %s</string>
+    <string name="disc_choose_action">What would you like to do?</string>
+    <string name="disc_via">via %s</string>
+    <string name="disc_permission">Starlane needs the “Nearby devices” permission to discover phones over Wi-Fi Direct. Same-network discovery still works without it.</string>
+    <string name="disc_bt_off">Bluetooth is off — Bluetooth discovery is skipped.</string>
+
+    <!-- Connect -->
+    <string name="connect_trying">Connecting via %s…</string>
+    <string name="connect_failed_NO_ROUTE">Could not reach the device. Make sure both phones are nearby and scanning.</string>
+    <string name="connect_failed_WIFI_DIRECT_FAILED">Wi-Fi Direct connection failed. Check that Wi-Fi is on, then try again.</string>
+    <string name="connect_failed_BLUETOOTH_FAILED">Bluetooth connection failed. Try pairing again.</string>
+    <string name="connect_failed_AUTH_FAILED">The device could not be verified. The connection was refused for your safety.</string>
+    <string name="connect_failed_TIMEOUT">The device did not respond in time.</string>
+    <string name="connect_failed_NEEDS_PERMISSION">A permission is missing for this connection method.</string>
+
+    <!-- Messages -->
+    <string name="msg_DISCONNECTED">Connection lost</string>
+    <string name="msg_RECOVERING">Connection dropped — reconnecting…</string>
+    <string name="msg_RECOVERED">Reconnected — resuming transfer</string>
+    <string name="msg_RECOVERY_FAILED">Could not reconnect. You can retry the transfer later.</string>
+    <string name="msg_PEER_WANTS_TO_RECEIVE">The other device is ready to receive — choose what to send.</string>
+    <string name="msg_NOT_CONNECTED">Connect to a device first.</string>
+    <string name="msg_HISTORY_CLEARED">History cleared</string>
+
+    <!-- Incoming -->
+    <string name="incoming_title">%s wants to send you files</string>
+    <string name="incoming_device">%1$s · %2$s</string>
+    <string name="incoming_summary">%1$s · %2$s</string>
+    <string name="incoming_apps">Includes %s — you will be asked before anything is installed.</string>
+    <string name="incoming_space_ok">Free space: %s</string>
+    <string name="incoming_space_low">Not enough space: %1$s needed, %2$s free</string>
+    <string name="incoming_resume">Resuming an interrupted transfer</string>
+    <string name="incoming_fingerprint">Device ID %s</string>
+
+    <!-- Picker -->
+    <string name="pick_title">Choose what to send</string>
+    <string name="tab_photos">Photos</string>
+    <string name="tab_videos">Videos</string>
+    <string name="tab_audio">Audio</string>
+    <string name="tab_documents">Documents</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_downloads">Downloads</string>
+    <string name="tab_other">Other files</string>
+    <string name="tab_folders">Folders</string>
+    <string name="pick_search">Search</string>
+    <string name="pick_sort_name">Name</string>
+    <string name="pick_sort_size">Size</string>
+    <string name="pick_sort_date">Date</string>
+    <string name="pick_summary">%1$s selected · %2$s</string>
+    <string name="pick_empty">Nothing here yet</string>
+    <string name="pick_loading">Loading…</string>
+    <string name="pick_media_permission">Allow access to photos, videos and audio to browse them here.</string>
+    <string name="pick_browse_files">Browse files</string>
+    <string name="pick_browse_files_hint">Opens the system file picker — no storage permission needed.</string>
+    <string name="pick_browse_folder">Choose a folder</string>
+    <string name="pick_browse_folder_hint">Sends the whole folder, keeping its structure.</string>
+    <string name="pick_downloads_hint">Pick from your Downloads folder.</string>
+    <string name="pick_added">%s added</string>
+    <string name="pick_send_to">Send to %s</string>
+    <string name="pick_not_connected">Not connected — files will be kept selected while you connect.</string>
+    <string name="pick_selected_items">Selected items</string>
+    <string name="pick_system_apps">Show system apps</string>
+
+    <!-- App transfer -->
+    <string name="app_detail_title">Share app</string>
+    <string name="app_version">Version %1$s · %2$s</string>
+    <string name="app_splits">Split APK app: base + %d parts (all included)</string>
+    <string name="app_single">Single APK</string>
+    <string name="app_data_toggle">DATA</string>
+    <string name="app_data_desc">Include every app-related file Android lets Starlane read.</string>
+    <string name="app_will_include">Will be transferred</string>
+    <string name="app_cannot_include">Cannot be transferred</string>
+    <string name="app_item_apk">Installation package (%s)</string>
+    <string name="app_item_obb">OBB game data: %1$s files, %2$s</string>
+    <string name="app_item_media">Android/media files: %1$s files, %2$s</string>
+    <string name="app_item_extra">Files you added: %1$s files, %2$s</string>
+    <string name="app_add_extra">Add app files from a folder…</string>
+    <string name="app_add_extra_hint">Use this for exported saves or resource folders you can see in the file picker.</string>
+    <string name="app_blocked">%s — blocked by Android storage protection</string>
+    <string name="app_private_note">Private app data (accounts, settings, local saves) is sealed inside the app by Android. Use the app’s own backup, cloud save or migration feature to move it.</string>
+    <string name="app_server_note">Online games and services usually keep progress on their servers — sign in on the new phone to restore it.</string>
+    <string name="app_total">Total %s</string>
+    <string name="app_add_to_selection">Add to selection</string>
+    <string name="app_remove_from_selection">Remove from selection</string>
+
+    <!-- Transfer screen -->
+    <string name="transfer_title">Transfers</string>
+    <string name="transfer_none">No transfers yet</string>
+    <string name="transfer_sending">Sending to %s</string>
+    <string name="transfer_receiving">Receiving from %s</string>
+    <string name="transfer_waiting_accept">Waiting for the other person to accept…</string>
+    <string name="transfer_paused">Paused</string>
+    <string name="transfer_recovering">Reconnecting…</string>
+    <string name="transfer_completed">Completed</string>
+    <string name="transfer_completed_partial">Completed with problems</string>
+    <string name="transfer_failed">Failed</string>
+    <string name="transfer_cancelled">Cancelled</string>
+    <string name="transfer_rejected">Declined</string>
+    <string name="transfer_interrupted">Interrupted — can be resumed</string>
+    <string name="transfer_files_progress">%1$s of %2$s files</string>
+    <string name="transfer_clear_finished">Clear finished</string>
+    <string name="transfer_report">Report</string>
+    <string name="transfer_report_ok">%s transferred and verified (SHA-256)</string>
+    <string name="transfer_report_skipped">%s skipped (already present)</string>
+    <string name="transfer_report_failed">%s failed</string>
+    <string name="transfer_received_apps">Received apps</string>
+    <string name="transfer_app_report">%1$s · package ✓ · %2$s extra files</string>
+    <string name="transfer_app_inaccessible">Not included: %s</string>
+    <string name="transfer_app_private">Private data was not included (Android restriction).</string>
+    <string name="reason_rejected">The other person declined.</string>
+    <string name="reason_no_space">Not enough storage on the receiving phone.</string>
+    <string name="reason_busy">The other device is busy.</string>
+    <string name="reason_timeout">No answer in time.</string>
+    <string name="reason_cancelled_by_peer">Cancelled by the other device.</string>
+    <string name="reason_cancelled">Cancelled.</string>
+    <string name="reason_connection_lost">Connection lost.</string>
+    <string name="reason_integrity">Integrity check failed; the file was discarded.</string>
+    <string name="reason_source_error">The file could not be read on the sending phone.</string>
+    <string name="reason_storage_error">The file could not be saved.</string>
+    <string name="reason_partial">Some files could not be transferred.</string>
+
+    <!-- Install -->
+    <string name="install_need_permission">Allow Starlane to install apps you received. Android will ask you to confirm each installation.</string>
+    <string name="install_checking">Checking package…</string>
+    <string name="install_waiting">Confirm the installation in the system dialog</string>
+    <string name="install_ok">%s installed</string>
+    <string name="install_failed">Installation failed: %s</string>
+    <string name="install_aborted">Installation cancelled</string>
+    <string name="install_problem_NO_BASE">The base APK is missing.</string>
+    <string name="install_problem_NOT_AN_APK">A received file is not a valid APK.</string>
+    <string name="install_problem_PACKAGE_MISMATCH">The APK parts belong to different apps.</string>
+    <string name="install_problem_MISSING_SPLITS">Required parts are missing: %s</string>
+    <string name="install_problem_SDK_TOO_OLD">This app needs a newer Android version.</string>
+    <string name="install_problem_UNREADABLE">The package could not be read.</string>
+    <string name="install_obb_note">OBB files were saved to Download/Starlane. Android does not let apps place them into another app’s folder automatically; move them with a file manager if the game asks for them.</string>
+
+    <!-- History -->
+    <string name="history_title">History</string>
+    <string name="history_empty">Your transfers will appear here.</string>
+    <string name="history_clear">Clear history</string>
+    <string name="history_sent">Sent to %s</string>
+    <string name="history_received">Received from %s</string>
+    <string name="history_avg">avg %s</string>
+
+    <!-- Devices -->
+    <string name="devices_title">Devices</string>
+    <string name="devices_empty">Devices you connect to will appear here.</string>
+    <string name="devices_favorites">Favorites</string>
+    <string name="devices_recent">Recent</string>
+    <string name="devices_last_seen">Last connected %s</string>
+    <string name="devices_transfers">%s transfers</string>
+    <string name="devices_clear_recent">Clear recent</string>
+    <string name="devices_favorite">Favorite</string>
+    <string name="devices_unfavorite">Remove favorite</string>
+
+    <!-- USB -->
+    <string name="usb_title">USB cable transfer</string>
+    <string name="usb_intro">Connect the two phones with a USB-C to USB-C cable, or an OTG adapter on the phone that will act as host. Open this screen on both phones.</string>
+    <string name="usb_host_support">USB host (OTG): %s</string>
+    <string name="usb_accessory_support">USB accessory mode: %s</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="usb_status_NO_USB_SUPPORT">This phone does not support USB host or accessory mode.</string>
+    <string name="usb_status_NOTHING_CONNECTED">No phone detected on the cable yet.</string>
+    <string name="usb_status_DEVICE_ATTACHED">A device is attached — allow access when asked.</string>
+    <string name="usb_status_SWITCHING">Switching the other phone to accessory mode…</string>
+    <string name="usb_status_ACCESSORY_ATTACHED">Detected as accessory — allow access when asked.</string>
+    <string name="usb_status_CONNECTED">Cable connected</string>
+    <string name="usb_status_PEER_NOT_AOA">The attached device does not support Android accessory mode.</string>
+    <string name="usb_status_PERMISSION_DENIED">USB access was denied.</string>
+    <string name="usb_status_FAILED">USB connection failed (%s).</string>
+    <string name="usb_fallback">If the cable cannot connect, use wireless transfer — it is usually faster anyway.</string>
+    <string name="usb_use_wireless">Use wireless instead</string>
+    <string name="usb_retry">Check again</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_profile">Profile</string>
+    <string name="settings_transfer">Transfer</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_language">Language</string>
+    <string name="lang_system">System default</string>
+    <string name="lang_en">English</string>
+    <string name="lang_fa">فارسی (Persian)</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_reduce_motion">Reduce animations</string>
+    <string name="settings_reduce_motion_desc">Fewer stars and no orbit animation. Enabled automatically on low-memory phones.</string>
+    <string name="settings_conflict">When a file already exists</string>
+    <string name="conflict_RENAME">Keep both (rename)</string>
+    <string name="conflict_OVERWRITE">Overwrite</string>
+    <string name="conflict_SKIP">Skip identical files</string>
+    <string name="settings_save_location">Save location</string>
+    <string name="settings_save_default">Download/Starlane</string>
+    <string name="settings_save_choose">Choose folder</string>
+    <string name="settings_save_reset">Use default</string>
+    <string name="settings_capabilities">Device capabilities</string>
+    <string name="cap_wifi_direct">Wi-Fi Direct</string>
+    <string name="cap_wifi_aware">Wi-Fi Aware hardware</string>
+    <string name="cap_bluetooth">Bluetooth</string>
+    <string name="cap_usb_host">USB host</string>
+    <string name="cap_usb_accessory">USB accessory</string>
+    <string name="cap_class">Device class</string>
+    <string name="cap_low_end">Low-memory profile</string>
+    <string name="cap_standard">Standard</string>
+    <string name="cap_cpu">%1$s cores · %2$s RAM</string>
+    <string name="cap_cipher">Cipher speed (measured)</string>
+    <string name="cap_supported">Supported</string>
+    <string name="cap_unsupported">Not supported</string>
+    <string name="cap_aware_note">Wi-Fi Aware is detected but transfers use Wi-Fi Direct or the local network, which are supported on many more phones.</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version %s</string>
+    <string name="settings_open_source">Source code on GitHub</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_transfer">Transfer progress</string>
+    <string name="notif_channel_incoming">Incoming requests</string>
+    <string name="notif_channel_done">Finished transfers</string>
+    <string name="notif_sending_to">Sending to %s</string>
+    <string name="notif_receiving_from">Receiving from %s</string>
+    <string name="notif_connected_to">Connected to %s</string>
+    <string name="notif_session_open">Session open — ready to share</string>
+    <string name="notif_waiting_title">Waiting to receive</string>
+    <string name="notif_waiting_text">Your phone is visible to nearby Starlane users</string>
+    <string name="notif_done_ok">Transfer complete</string>
+    <string name="notif_done_partial">Transfer finished with problems</string>
+</resources>
