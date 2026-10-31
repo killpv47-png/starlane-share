@@ -1,0 +1,37 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  core:
+    name: Transfer engine tests (JVM)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Run engine unit + loopback integration tests
+        run: ./gradlew -PcoreOnly :core:test --stacktrace -Dstarlane.largeFileMb=512
+      - name: Upload engine test reports and benchmarks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-test-reports
+          path: |
+            core/build/reports/
+            core/build/test-results/
