@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Starlane" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/starlane_window</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Native Android splash screen (AndroidX SplashScreen backport for API 21-30). -->
+    <style name="Theme.Starlane.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/starlane_night</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Starlane</item>
+    </style>
+</resources>
