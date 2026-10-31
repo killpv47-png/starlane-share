@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Environment
 import android.os.StatFs
 import android.provider.MediaStore
+import androidx.annotation.RequiresApi
 import androidx.documentfile.provider.DocumentFile
 import com.starlane.core.engine.ConflictPolicy
 import com.starlane.core.engine.FileSystemStorage
@@ -65,6 +66,7 @@ class AndroidStorage(
     private fun legacyWritable(): Boolean = Build.VERSION.SDK_INT < 30 || Environment.isExternalStorageLegacy()
 
     /** API 30+: Download/Starlane/<relative path> through MediaStore (no storage permission needed). */
+    @RequiresApi(29)
     private fun deliverToMediaStore(entry: FileEntry, part: File, policy: ConflictPolicy): String {
         val rel = SafeNames.sanitizeRelPath(entry.relPath)
         val dir = rel.substringBeforeLast('/', "")
@@ -97,6 +99,7 @@ class AndroidStorage(
         return uri.toString()
     }
 
+    @RequiresApi(29)
     private fun findMediaStore(relativePath: String, name: String): Uri? {
         if (Build.VERSION.SDK_INT < 29) return null
         val collection = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
@@ -108,6 +111,7 @@ class AndroidStorage(
         return null
     }
 
+    @RequiresApi(29)
     private fun mediaStoreExists(relativePath: String, name: String) = findMediaStore(relativePath, name) != null
 
     /** User-chosen SAF folder. Sub-folders from the sender's relative path are recreated. */

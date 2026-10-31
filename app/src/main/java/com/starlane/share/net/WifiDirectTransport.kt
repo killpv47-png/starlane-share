@@ -88,8 +88,7 @@ class WifiDirectTransport(
                 addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)
                 addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)
             }
-            if (Build.VERSION.SDK_INT >= 33) context.registerReceiver(r, f, Context.RECEIVER_NOT_EXPORTED)
-            else context.registerReceiver(r, f)
+            androidx.core.content.ContextCompat.registerReceiver(context, r, f, androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED)
             receiver = r
         }
         return ch

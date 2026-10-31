@@ -94,7 +94,7 @@ class UsbTransport(
                 addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
                 addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED)
             }
-            if (Build.VERSION.SDK_INT >= 33) context.registerReceiver(r, f, Context.RECEIVER_NOT_EXPORTED) else context.registerReceiver(r, f)
+            androidx.core.content.ContextCompat.registerReceiver(context, r, f, androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED)
             receiver = r
         }
         refresh()

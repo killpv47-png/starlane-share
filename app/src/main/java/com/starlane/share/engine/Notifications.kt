@@ -41,6 +41,10 @@ object Notifications {
     private fun builder(c: Context, channel: String): Notification.Builder =
         if (Build.VERSION.SDK_INT >= 26) Notification.Builder(c, channel) else Notification.Builder(c)
 
+    @Suppress("DEPRECATION")
+    private fun act(label: String, pi: PendingIntent): Notification.Action =
+        Notification.Action.Builder(R.drawable.ic_stat_starlane, label, pi).build()
+
     private fun flags() = PendingIntent.FLAG_UPDATE_CURRENT or (if (Build.VERSION.SDK_INT >= 23) PendingIntent.FLAG_IMMUTABLE else 0)
 
     private fun openApp(c: Context, extra: String? = null): PendingIntent {
@@ -72,15 +76,15 @@ object Notifications {
             }
             b.setContentTitle(title).setContentText(text)
                 .setProgress(1000, (t.progress * 1000).toInt(), t.state == TransferState.WAITING_ACCEPT)
-                .addAction(Notification.Action.Builder(null, l.getString(R.string.action_cancel), action(c, ActionReceiver.ACTION_CANCEL, t.id)).build())
+                .addAction(act(l.getString(R.string.action_cancel), action(c, ActionReceiver.ACTION_CANCEL, t.id)))
         } else if (ShareManager.currentConnection() != null) {
             val conn = ShareManager.connection.value
             b.setContentTitle(l.getString(R.string.notif_connected_to, conn?.peerName ?: ""))
                 .setContentText(l.getString(R.string.notif_session_open))
-                .addAction(Notification.Action.Builder(null, l.getString(R.string.action_disconnect), action(c, ActionReceiver.ACTION_DISCONNECT)).build())
+                .addAction(act(l.getString(R.string.action_disconnect), action(c, ActionReceiver.ACTION_DISCONNECT)))
         } else {
             b.setContentTitle(l.getString(R.string.notif_waiting_title)).setContentText(l.getString(R.string.notif_waiting_text))
-                .addAction(Notification.Action.Builder(null, l.getString(R.string.action_stop), action(c, ActionReceiver.ACTION_STOP_RECEIVE)).build())
+                .addAction(act(l.getString(R.string.action_stop), action(c, ActionReceiver.ACTION_STOP_RECEIVE)))
         }
         return b.build()
     }
@@ -101,8 +105,8 @@ object Notifications {
             .setContentText(l.resources.getQuantityString(R.plurals.files_count, t.fileCount, t.fileCount) + " · " + Fmt.bytes(l, t.totalBytes))
             .setContentIntent(openApp(c, "incoming")).setAutoCancel(true)
             .setCategory(Notification.CATEGORY_MESSAGE)
-            .addAction(Notification.Action.Builder(null, l.getString(R.string.action_review), openApp(c, "incoming")).build())
-            .addAction(Notification.Action.Builder(null, l.getString(R.string.action_reject), action(c, ActionReceiver.ACTION_REJECT)).build())
+            .addAction(act(l.getString(R.string.action_review), openApp(c, "incoming")))
+            .addAction(act(l.getString(R.string.action_reject), action(c, ActionReceiver.ACTION_REJECT)))
         if (Build.VERSION.SDK_INT < 26) @Suppress("DEPRECATION") n.setPriority(Notification.PRIORITY_HIGH)
         runCatching { nm(c).notify(ID_INCOMING, n.build()) }
     }

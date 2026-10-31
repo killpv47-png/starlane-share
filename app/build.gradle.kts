@@ -66,7 +66,9 @@ android {
         resources.excludes += listOf("/META-INF/{AL2.0,LGPL2.1}", "/META-INF/*.version", "DebugProbesKt.bin")
     }
     lint {
-        abortOnError = false
+        // Lint errors (e.g. API-level violations that would crash older phones) fail the build.
+        abortOnError = true
+        warningsAsErrors = false
         checkReleaseBuilds = false
         htmlReport = true
         xmlReport = true

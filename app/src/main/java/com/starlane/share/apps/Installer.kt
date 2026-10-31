@@ -69,8 +69,8 @@ object Installer {
                     baseFound = true
                     version = info?.versionName ?: ""
                     requiredSplits = requiredSplitsOf(f)
-                    val min = info?.applicationInfo?.minSdkVersion ?: 0
-                    if (Build.VERSION.SDK_INT >= 24 && min > Build.VERSION.SDK_INT) {
+                    val min = if (Build.VERSION.SDK_INT >= 24) info?.applicationInfo?.minSdkVersion ?: 0 else 0
+                    if (min > Build.VERSION.SDK_INT) {
                         return BundleCheck(false, BundleCheck.Problem.SDK_TOO_OLD, pkg, version)
                     }
                 } else {

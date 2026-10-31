@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.content.ContextCompat
 
 /** Only the permissions each feature needs, per API level. Nothing is requested up-front. */
 object Perms {
@@ -35,7 +36,7 @@ object Perms {
     fun notifications(): Array<String> =
         if (Build.VERSION.SDK_INT >= 33) arrayOf(Manifest.permission.POST_NOTIFICATIONS) else emptyArray()
 
-    fun granted(c: Context, perms: Array<String>) = perms.all { c.checkSelfPermission(it) == PackageManager.PERMISSION_GRANTED }
+    fun granted(c: Context, perms: Array<String>) = perms.all { ContextCompat.checkSelfPermission(c, it) == PackageManager.PERMISSION_GRANTED }
 
-    fun missing(c: Context, perms: Array<String>) = perms.filter { c.checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }.toTypedArray()
+    fun missing(c: Context, perms: Array<String>) = perms.filter { ContextCompat.checkSelfPermission(c, it) != PackageManager.PERMISSION_GRANTED }.toTypedArray()
 }

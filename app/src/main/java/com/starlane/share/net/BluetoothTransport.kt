@@ -95,7 +95,8 @@ class BluetoothTransport(
                 }
             }
             val f = IntentFilter(BluetoothDevice.ACTION_FOUND)
-            if (Build.VERSION.SDK_INT >= 33) context.registerReceiver(r, f, Context.RECEIVER_EXPORTED) else context.registerReceiver(r, f)
+            // ACTION_FOUND is a system broadcast; EXPORTED is required to receive it on API 33+.
+            androidx.core.content.ContextCompat.registerReceiver(context, r, f, androidx.core.content.ContextCompat.RECEIVER_EXPORTED)
             receiver = r
         }
         runCatching { a.cancelDiscovery(); a.startDiscovery() }

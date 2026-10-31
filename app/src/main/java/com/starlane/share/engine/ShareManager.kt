@@ -1,5 +1,6 @@
 package com.starlane.share.engine
 
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
@@ -61,6 +62,7 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * Nothing heavy happens until the user scans, becomes visible or connects ([ensureStarted]).
  */
+@SuppressLint("StaticFieldLeak") // holds only the Application context, never an Activity
 object ShareManager {
     private lateinit var app: Context
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -91,7 +93,7 @@ object ShareManager {
     private val live = ConcurrentHashMap<String, Transfer>()
     private val order = ArrayList<String>()
     private val sources = ConcurrentHashMap<String, PickSource>()
-    private val recovering = ConcurrentHashMap.newKeySet<String>()
+    private val recovering: MutableSet<String> = java.util.Collections.newSetFromMap(ConcurrentHashMap<String, Boolean>())
     private var tickerJob: Job? = null
     @Volatile private var lastDevice: NearbyDevice? = null
     @Volatile var deviceProfile: DeviceProfile = DeviceProfile(Runtime.getRuntime().availableProcessors(), false, 0)

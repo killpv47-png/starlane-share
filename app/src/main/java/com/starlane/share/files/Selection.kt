@@ -51,7 +51,7 @@ object Selection {
     private fun dedupePaths(list: List<PickItem>): List<PickItem> {
         val seen = HashMap<String, Int>()
         return list.map { p ->
-            val n = seen.getOrDefault(p.relPath.lowercase(), 0)
+            val n = seen[p.relPath.lowercase()] ?: 0
             seen[p.relPath.lowercase()] = n + 1
             if (n == 0) p else {
                 val dot = p.relPath.lastIndexOf('.')

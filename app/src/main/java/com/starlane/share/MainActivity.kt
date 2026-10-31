@@ -22,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.starlane.share.apps.AppEntry
@@ -74,7 +75,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             @Suppress("UNUSED_EXPRESSION") themeVersion // recompose on appearance change
             val prefs = App.instance.prefs
-            var onboarded by mutableStateOf(prefs.onboarded)
+            var onboarded by remember { mutableStateOf(prefs.onboarded) }
             val reduce = prefs.reduceAnimations || (ShareManager.isStarted && ShareManager.deviceProfile.lowEnd)
             StarlaneTheme(prefs.theme) {
                 CompositionLocalProvider(LocalReduceMotion provides reduce) {
