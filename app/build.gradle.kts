@@ -7,7 +7,7 @@ plugins {
 val ciRun = System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull() ?: 1
 // Release signing is only configured when the keystore is supplied through CI secrets.
 val keystorePath: String? = System.getenv("STARLANE_KEYSTORE_PATH")
-val hasReleaseKey = !keystorePath.isNullOrBlank() && file(keystorePath!!).exists()
+val hasReleaseKey = !keystorePath.isNullOrBlank() && file(keystorePath).exists()
 
 android {
     namespace = "com.starlane.share"
@@ -20,11 +20,8 @@ android {
         versionCode = ciRun
         versionName = "1.0.$ciRun"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    androidResources {
-        @Suppress("UnstableApiUsage")
-        localeFilters += listOf("en", "fa")
+        // Ship only the two supported languages (also strips unused library translations).
+        resourceConfigurations += listOf("en", "fa")
     }
 
     signingConfigs {
