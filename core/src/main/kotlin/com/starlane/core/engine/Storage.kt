@@ -254,11 +254,12 @@ class ResumeStore(private val dir: File) {
  * Partial files live in a hidden sub-directory on the same volume so commit is an atomic rename.
  */
 open class FileSystemStorage(
-    private val root: File,
+    protected val root: File,
     private val resume: ResumeStore,
-    private val onCommitted: (File) -> Unit = {},
+    partsDir: File? = null,
+    private val onCommitted: (FileEntry, String) -> Unit = { _, _ -> },
 ) : ReceiveStorage {
-    private val partsDir = File(root, ".starlane-parts")
+    private val partsDir = partsDir ?: File(root, ".starlane-parts")
     private val claimLock = Any()
     private val claimed = HashSet<String>()
 
@@ -268,6 +269,39 @@ open class FileSystemStorage(
     }
 
     protected open fun targetFor(entry: FileEntry): File = File(root, SafeNames.sanitizeRelPath(entry.relPath))
+
+    /** Alternative destination used when [targetFor] cannot be written (e.g. restricted folders). */
+    protected open fun fallbackTargetFor(entry: FileEntry): File? = null
+
+    /**
+     * Moves a fully verified partial file to its destination and returns the user-facing location.
+     * Subclasses may deliver elsewhere (e.g. a Storage Access Framework folder).
+     */
+    protected open fun deliver(entry: FileEntry, part: File, policy: ConflictPolicy): String {
+        val placed = try {
+            place(targetFor(entry), part, policy)
+        } catch (e: IOException) {
+            val fb = fallbackTargetFor(entry) ?: throw e
+            place(fb, part, policy)
+        }
+        if (entry.lastModified > 0) placed.setLastModified(entry.lastModified)
+        return placed.absolutePath
+    }
+
+    /** Places [part] at [base] (or a numbered variant) according to the conflict policy. */
+    protected fun place(base: File, part: File, policy: ConflictPolicy): File {
+        val target = resolveTarget(base, policy)
+        try {
+            if (policy == ConflictPolicy.OVERWRITE && target.exists()) target.delete()
+            if (!part.renameTo(target)) {
+                part.copyTo(target, overwrite = policy == ConflictPolicy.OVERWRITE)
+                part.delete()
+            }
+        } finally {
+            synchronized(claimLock) { claimed -= target.absolutePath }
+        }
+        return target
+    }
 
     override fun prepare(ctx: IncomingContext, entry: FileEntry): Prepared {
         val key = ResumeStore.keyFor(ctx.peerId, entry, ctx.segmentSize)
@@ -299,9 +333,9 @@ open class FileSystemStorage(
     }
 
     /** Finds a free destination name according to the conflict policy. */
-    private fun resolveTarget(entry: FileEntry, policy: ConflictPolicy): File {
-        val base = targetFor(entry)
-        base.parentFile?.mkdirs()
+    private fun resolveTarget(base: File, policy: ConflictPolicy): File {
+        val parent = base.parentFile
+        if (parent != null && !parent.isDirectory && !parent.mkdirs()) throw IOException("cannot create directory")
         synchronized(claimLock) {
             if (policy == ConflictPolicy.OVERWRITE) return base
             var f = base
@@ -352,20 +386,10 @@ open class FileSystemStorage(
         override fun commit(): String {
             ch.force(false)
             raf.close()
-            val target = resolveTarget(entry, ctx.policy)
-            try {
-                if (ctx.policy == ConflictPolicy.OVERWRITE && target.exists()) target.delete()
-                if (!part.renameTo(target)) {
-                    part.copyTo(target, overwrite = ctx.policy == ConflictPolicy.OVERWRITE)
-                    part.delete()
-                }
-                if (entry.lastModified > 0) target.setLastModified(entry.lastModified)
-            } finally {
-                synchronized(claimLock) { claimed -= target.absolutePath }
-            }
+            val location = deliver(entry, part, ctx.policy)
             resume.remove(prepared.resumeKey)
-            onCommitted(target)
-            return target.absolutePath
+            onCommitted(entry, location)
+            return location
         }
 
         override fun abort(keepForResume: Boolean) {

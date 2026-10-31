@@ -77,7 +77,11 @@ internal class SendJob(
                     continue
                 }
                 remaining[e.index] = n
-                for (s in 0 until n) queue.add(SegUnit(e.index, s, plan.present[s]))
+                for (s in 0 until n) {
+                    val h = plan.present[s]
+                    if (h != null) already += m.segmentLength(e, s).toLong()
+                    queue.add(SegUnit(e.index, s, h))
+                }
             }
         }
         transfer.bytesDone.set(already)
@@ -194,9 +198,11 @@ internal class SendJob(
             }
             val h = digest.digest()
             if (constantTimeEquals(h, verify)) {
-                segDone(unit.file, unit.seg, h, countBytes = len.toLong())
+                segDone(unit.file, unit.seg, h, countBytes = 0) // already counted as resumed
                 return
             }
+            // Receiver's copy differs from ours: it is no longer "already transferred".
+            transfer.bytesDone.addAndGet(-len.toLong())
             unit.verify = null
         }
 

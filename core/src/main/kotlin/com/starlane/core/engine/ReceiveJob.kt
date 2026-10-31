@@ -60,6 +60,7 @@ internal class ReceiveJob(
                         present.forEach { (s, h) -> segHashes[e.index]!![s] = h }
                         val presentBytes = present.keys.sumOf { m.segmentLength(e, it).toLong() }
                         needed += e.size - presentBytes
+                        already += presentBytes
                         incoming[e.index] = storage.open(ctx, e, Prepared.Receive(p.resumeKey, present))
                         expected[e.index] = true
                         plans += FilePlan(e.index, true, present)
@@ -105,6 +106,15 @@ internal class ReceiveJob(
             lane.rxJob = this; lane.rxFile = file; lane.rxSeg = seg; lane.rxIncoming = null
             lane.rxStart = 0; lane.rxPos = 0; lane.rxEnd = m.segmentLength(e, seg).toLong()
             return
+        }
+        val wasPresent = synchronized(lock) {
+            val arr = segHashes[file]!!
+            (arr[seg] != null).also { if (it) arr[seg] = null }
+        }
+        if (wasPresent) {
+            // Sender found our resumed copy invalid and re-sends it: uncount it.
+            transfer.bytesDone.addAndGet(-m.segmentLength(e, seg).toLong())
+            inc.segmentInvalid(seg)
         }
         lane.rxJob = this
         lane.rxFile = file
@@ -193,7 +203,6 @@ internal class ReceiveJob(
                 transfer.fileStatus[file] = if (ok) FileStatus.DONE else FileStatus.FAILED
                 if (!ok) transfer.fileError[file] = reason
             }
-            if (e.size == 0L && ok) Unit
             conn.post(T.FILE_COMMITTED, Rec.fileCommitted(tid, file, ok, reason))
             conn.node.listener.onFileFinished(transfer, file)
             checkDone()

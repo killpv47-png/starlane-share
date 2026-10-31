@@ -130,7 +130,9 @@ class TransferEngineTest {
         val conn = a.connectTo(b)
         val t1 = conn.send(source, turbo = false)
         assertTrue(awaitState(t1, 30) { it.doneBytes > 20_000_000 })
+        conn.pause(t1, true) // freeze mid-transfer so the drop happens before completion
         Thread.sleep(2500) // let the receiver checkpoint verified segments
+        assertTrue(t1.state == TransferState.RUNNING)
         conn.close(Reasons.CONNECTION_LOST) // simulate the Wi-Fi link dropping
         awaitTerminal(t1, 20)
         assertEquals(TransferState.INTERRUPTED, t1.state)
@@ -140,6 +142,8 @@ class TransferEngineTest {
         val t2 = awaitTerminal(conn2.resume(t1, source, turbo = false))
         assertEquals(t2.reason, TransferState.COMPLETED, t2.state)
         assertTrue("resume should skip verified data, started at ${t2.bytesAtStart}", t2.bytesAtStart >= 4_000_000)
+        assertTrue("resumed bytes must be below the total", t2.bytesAtStart < t2.totalBytes)
+        assertEquals(t2.totalBytes, t2.doneBytes)
         assertEquals(TestFiles.sha(f), TestFiles.sha(File(b.inbox, "movie.mkv")))
     }
 
@@ -166,9 +170,11 @@ class TransferEngineTest {
         val conn = a.connectTo(b)
         val t = awaitTerminal(conn.send(FileListSource(listOf(f to "../../../etc/evil.txt")), false))
         assertEquals(TransferState.COMPLETED, t.state)
+        val received = awaitTerminal(b.requests.poll(10, TimeUnit.SECONDS)!!.transfer)
+        assertEquals(TransferState.COMPLETED, received.state)
         assertTrue(File(b.inbox, "etc/evil.txt").isFile)
         assertFalse(File(dir, "etc/evil.txt").exists())
-        assertTrue(File(t.fileLocation[0]!!).canonicalPath.startsWith(b.inbox.canonicalPath))
+        assertTrue(File(received.fileLocation[0]!!).canonicalPath.startsWith(b.inbox.canonicalPath))
     }
 
     @Test
