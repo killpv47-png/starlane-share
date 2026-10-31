@@ -98,7 +98,7 @@ object Notifications {
         val t = req.transfer
         val n = builder(c, CH_INCOMING).setSmallIcon(R.drawable.ic_stat_starlane)
             .setContentTitle(l.getString(R.string.incoming_title, t.peer.profile.username))
-            .setContentText(l.getQuantityString(R.plurals.files_count, t.fileCount, t.fileCount) + " · " + Fmt.bytes(l, t.totalBytes))
+            .setContentText(l.resources.getQuantityString(R.plurals.files_count, t.fileCount, t.fileCount) + " · " + Fmt.bytes(l, t.totalBytes))
             .setContentIntent(openApp(c, "incoming")).setAutoCancel(true)
             .setCategory(Notification.CATEGORY_MESSAGE)
             .addAction(Notification.Action.Builder(null, l.getString(R.string.action_review), openApp(c, "incoming")).build())
@@ -116,7 +116,7 @@ object Notifications {
         val ok = t.state == TransferState.COMPLETED && t.reason.isEmpty()
         val title = l.getString(if (ok) R.string.notif_done_ok else R.string.notif_done_partial)
         val n = builder(c, CH_DONE).setSmallIcon(R.drawable.ic_stat_starlane).setContentTitle(title)
-            .setContentText("${t.peer.profile.username} · ${l.getQuantityString(R.plurals.files_count, t.fileCount, t.fileCount)} · ${Fmt.bytes(l, t.totalBytes)}")
+            .setContentText("${t.peer.profile.username} · ${l.resources.getQuantityString(R.plurals.files_count, t.fileCount, t.fileCount)} · ${Fmt.bytes(l, t.totalBytes)}")
             .setContentIntent(openApp(c, "history")).setAutoCancel(true)
         runCatching { nm(c).notify(ID_DONE, n.build()) }
     }
