@@ -34,6 +34,10 @@ class Connection internal constructor(
     @Volatile private var pingSentAt = 0L
 
     val laneCount: Int get() = lanes.count { !it.dead }
+
+    /** AEAD suite negotiated for this session (same on all lanes). */
+    val cipherSuite: com.starlane.core.crypto.CipherSuite?
+        get() = lanes.firstOrNull()?.channel?.suite
     internal fun liveLanes(): List<Lane> = lanes.filter { !it.dead }
     internal val control: Lane? get() = lanes.firstOrNull { it.index == 0 && !it.dead }
 
@@ -144,8 +148,8 @@ class Connection internal constructor(
     }
 
     /** Starts sending [source] to the peer. Returns immediately; observe the returned transfer. */
-    fun send(source: TransferSource, turbo: Boolean): Transfer {
-        val tuning = Tuner.choose(kind, node.caps(), peer.caps, turbo)
+    fun send(source: TransferSource, turbo: Boolean, override: TransferTuning? = null): Transfer {
+        val tuning = override ?: Tuner.choose(kind, node.caps(), peer.caps, turbo)
         val tid = node.newTransferId()
         val manifest = node.buildManifest(tid, source, tuning.segmentSize)
         return startSend(source, manifest, tuning, turbo, resume = false, previous = null)
