@@ -34,7 +34,10 @@ class UiFlowTest {
         ctx.getSharedPreferences("starlane", Context.MODE_PRIVATE).edit().clear().commit()
         // Pre-grant what the app may ask for, so no system dialog covers the Compose window.
         val perms = Perms.notifications() + Perms.legacyWrite() + Perms.discovery() + Perms.bluetooth() + Perms.media()
-        perms.forEach { p -> runCatching { instr.uiAutomation.grantRuntimePermission(ctx.packageName, p) } }
+        // `pm grant` via the shell works on every API level (UiAutomation.grantRuntimePermission is API 28+).
+        perms.forEach { p ->
+            runCatching { instr.uiAutomation.executeShellCommand("pm grant ${ctx.packageName} $p").close() }
+        }
     }
 
     /** First launch on a cold emulator can take several seconds before setContent attaches. */
