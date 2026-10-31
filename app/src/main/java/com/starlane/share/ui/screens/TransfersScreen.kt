@@ -75,7 +75,8 @@ fun TransfersScreen(onBack: () -> Unit) {
                     modifier = Modifier.clip(RoundedCornerShape(8.dp)).clickable { ShareManager.clearFinished() }.padding(8.dp))
             }
         }
-        StatusPanel(onOpenTransfers = {}).let { }
+        androidx.compose.foundation.layout.Box(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) { StatusPanel(onOpenTransfers = {}) }
+        Spacer(Modifier.height(8.dp))
         if (list.isEmpty()) { EmptyState(Glyph.SEND, stringResource(R.string.transfer_none)); return@Column }
         LazyColumn(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(list, key = { it.id }) { t -> TransferCard(t) }
