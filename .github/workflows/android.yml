@@ -1,0 +1,138 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  core:
+    name: Transfer engine tests (JVM)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Run engine unit + loopback integration tests and benchmark
+        run: ./gradlew -PcoreOnly :core:test --stacktrace -Dstarlane.largeFileMb=512
+      - name: Publish benchmark to job summary
+        if: always()
+        run: |
+          if [ -f core/build/reports/starlane/benchmark.md ]; then cat core/build/reports/starlane/benchmark.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Upload engine test reports and benchmarks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-test-reports
+          path: |
+            core/build/reports/
+            core/build/test-results/
+
+  app:
+    name: Build APKs, unit tests, lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build debug + optimized APKs
+        run: ./gradlew :app:assembleDebug :app:assembleOptimized --stacktrace
+      - name: App unit tests
+        run: ./gradlew :app:testDebugUnitTest --stacktrace
+      - name: Android lint
+        run: ./gradlew :app:lintDebug --stacktrace
+      - name: APK sizes
+        if: always()
+        run: |
+          echo "### APK sizes" >> "$GITHUB_STEP_SUMMARY"
+          find app/build/outputs/apk -name '*.apk' -exec ls -l {} \; | awk '{print "- " $9 ": " $5 " bytes"}' >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: starlane-share-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+      - name: Upload optimized APK (R8, debug-signed, for testing)
+        uses: actions/upload-artifact@v4
+        with:
+          name: starlane-share-optimized-apk
+          path: app/build/outputs/apk/optimized/*.apk
+      - name: Upload lint and test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
+
+  emulator:
+    name: Instrumented tests + device metrics (API ${{ matrix.api }} emulator)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [ 26, 30 ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build APKs and test APK
+        run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleOptimized --stacktrace
+      - name: Run instrumented tests and measure on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          target: default
+          arch: x86_64
+          ram-size: 2048M
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: |
+            ./gradlew :app:connectedDebugAndroidTest --stacktrace
+            adb logcat -d -s StarlaneBench:I > bench-logcat.txt || true
+            API_LEVEL=${{ matrix.api }} ./ci/device-metrics.sh
+      - name: Publish device results to job summary
+        if: always()
+        run: |
+          if [ -f metrics.md ]; then cat metrics.md >> "$GITHUB_STEP_SUMMARY"; fi
+          if [ -f bench-logcat.txt ]; then
+            echo "### On-device engine benchmark (logcat)" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            grep StarlaneBench bench-logcat.txt >> "$GITHUB_STEP_SUMMARY" || true
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload instrumented test reports and metrics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: device-results-api${{ matrix.api }}
+          path: |
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/
+            metrics.md
+            bench-logcat.txt
