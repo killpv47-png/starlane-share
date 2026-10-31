@@ -18,6 +18,9 @@ dependencies {
 }
 
 tasks.test {
+    // Always execute: these are integration tests and benchmarks; a cached result proves nothing.
+    outputs.upToDateWhen { false }
+    outputs.cacheIf { false }
     maxHeapSize = "768m"
     testLogging {
         events("passed", "failed", "skipped")
