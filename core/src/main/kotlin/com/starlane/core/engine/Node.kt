@@ -43,6 +43,12 @@ class IncomingRequest internal constructor(
 ) {
     val createdAt = System.currentTimeMillis()
     private val decided = AtomicInteger(0)
+
+    /**
+     * Upper bound of the bytes that must be written if accepted. Resumed segments are only known
+     * after storage inspection on accept, so this is conservative (never under-estimates).
+     */
+    val bytesNeeded: Long get() = transfer.totalBytes
     val isDecided get() = decided.get() != 0
 
     fun accept(policy: ConflictPolicy = ConflictPolicy.RENAME) {
