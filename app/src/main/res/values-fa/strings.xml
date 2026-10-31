@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">استارلین شیر</string>
+    <string name="tagline">اشتراک‌گذاری سریع، خصوصی و آفلاین</string>
+
+    <!-- Units & formats -->
+    <string name="unit_b">%s بایت</string>
+    <string name="unit_kb">%s کیلوبایت</string>
+    <string name="unit_mb">%s مگابایت</string>
+    <string name="unit_gb">%s گیگابایت</string>
+    <string name="unit_per_second">%s/ثانیه</string>
+    <string name="eta_unknown">—</string>
+    <string name="duration_hm">%1$s ساعت و %2$s دقیقه</string>
+    <string name="duration_ms">%1$s دقیقه و %2$s ثانیه</string>
+    <string name="duration_s">%s ثانیه</string>
+    <plurals name="files_count">
+        <item quantity="one">%d فایل</item>
+        <item quantity="other">%d فایل</item>
+    </plurals>
+    <plurals name="apps_count">
+        <item quantity="one">%d برنامه</item>
+        <item quantity="other">%d برنامه</item>
+    </plurals>
+    <plurals name="devices_found">
+        <item quantity="one">%d دستگاه در نزدیکی</item>
+        <item quantity="other">%d دستگاه در نزدیکی</item>
+    </plurals>
+
+    <!-- Common actions -->
+    <string name="action_cancel">لغو</string>
+    <string name="action_disconnect">قطع اتصال</string>
+    <string name="action_stop">توقف</string>
+    <string name="action_review">بررسی</string>
+    <string name="action_reject">رد کردن</string>
+    <string name="action_accept">پذیرفتن</string>
+    <string name="action_send">ارسال</string>
+    <string name="action_receive">دریافت</string>
+    <string name="action_save">ذخیره</string>
+    <string name="action_continue">ادامه</string>
+    <string name="action_back">بازگشت</string>
+    <string name="action_pause">توقف موقت</string>
+    <string name="action_resume">ادامه</string>
+    <string name="action_retry">تلاش دوباره</string>
+    <string name="action_open">باز کردن</string>
+    <string name="action_install">نصب</string>
+    <string name="action_copy_info">کپی اطلاعات</string>
+    <string name="action_clear">پاک کردن</string>
+    <string name="action_select_all">انتخاب همه</string>
+    <string name="action_clear_selection">لغو انتخاب‌ها</string>
+    <string name="action_grant">اعطای دسترسی</string>
+    <string name="action_settings">تنظیمات</string>
+    <string name="action_close">بستن</string>
+    <string name="action_remove">حذف</string>
+    <string name="copied">کپی شد</string>
+
+    <!-- Onboarding -->
+    <string name="onb_title">خوش آمدید</string>
+    <string name="onb_subtitle">نامی را انتخاب کنید که افراد نزدیک هنگام اشتراک‌گذاری می‌بینند.</string>
+    <string name="onb_username">نام کاربری</string>
+    <string name="onb_username_hint">حداقل ۲ نویسه</string>
+    <string name="onb_nickname">نام مستعار دستگاه (اختیاری)</string>
+    <string name="onb_icon">نماد دستگاه</string>
+    <string name="onb_start">شروع اشتراک‌گذاری</string>
+    <string name="onb_privacy">انتقال‌ها فقط روی شبکهٔ محلی شما یا اتصال مستقیم بین دو گوشی انجام می‌شود. هیچ چیزی بارگذاری نمی‌شود.</string>
+
+    <!-- Home -->
+    <string name="home_hello">سلام، %s</string>
+    <string name="home_start_scanning">شروع جستجو</string>
+    <string name="home_scan_hint">گوشی‌های نزدیکی را که استارلین شیر دارند پیدا کنید</string>
+    <string name="home_receive">دریافت</string>
+    <string name="home_receive_hint">قابل مشاهده شوید و منتظر بمانید</string>
+    <string name="home_send_files">ارسال فایل</string>
+    <string name="home_send_hint">انتخاب فایل برای دستگاه متصل</string>
+    <string name="home_history">تاریخچه</string>
+    <string name="home_devices">دستگاه‌ها</string>
+    <string name="home_usb">کابل USB</string>
+    <string name="home_settings">تنظیمات</string>
+    <string name="home_waiting">با نام «%s» قابل مشاهده هستید — در انتظار فرستنده…</string>
+    <string name="home_stop_waiting">پایان انتظار</string>
+    <string name="home_shared_pending">%s آمادهٔ اشتراک‌گذاری است — به یک دستگاه وصل شوید</string>
+
+    <!-- Status panel -->
+    <string name="status_title">اتصال</string>
+    <string name="status_not_connected">متصل نیست</string>
+    <string name="status_connected_to">متصل به %s</string>
+    <string name="status_connecting">در حال اتصال به %s…</string>
+    <string name="status_method">روش</string>
+    <string name="status_quality">کیفیت پیوند</string>
+    <string name="status_signal">%1$d dBm · %2$d مگابیت بر ثانیه</string>
+    <string name="status_rtt">تأخیر %s میلی‌ثانیه</string>
+    <string name="status_quality_na">این پیوند گزارشی ارائه نمی‌دهد</string>
+    <string name="status_speed">سرعت</string>
+    <string name="status_avg">میانگین</string>
+    <string name="status_transferred">منتقل‌شده</string>
+    <string name="status_remaining">زمان باقی‌مانده</string>
+    <string name="status_idle">انتقال فعالی وجود ندارد</string>
+    <string name="status_encrypted">رمزگذاری‌شده · %s</string>
+    <string name="status_lanes">%d مسیر موازی</string>
+
+    <!-- Methods -->
+    <string name="method_LAN">وای‌فای (شبکهٔ مشترک)</string>
+    <string name="method_WIFI_DIRECT">وای‌فای دایرکت</string>
+    <string name="method_HOTSPOT">هات‌اسپات</string>
+    <string name="method_BLUETOOTH">بلوتوث (کندتر)</string>
+    <string name="method_USB">کابل USB</string>
+    <string name="method_LOOPBACK">حلقهٔ داخلی</string>
+
+    <!-- Turbo -->
+    <string name="turbo_mode">حالت توربو</string>
+    <string name="turbo_desc">از مسیرهای موازی، بافرهای بزرگ‌تر و سریع‌ترین رمزنگاری پشتیبانی‌شده در هر دو گوشی استفاده می‌کند.</string>
+    <string name="turbo_active">توربو فعال است</string>
+    <string name="turbo_off">توربو خاموش است</string>
+    <string name="turbo_limited">توربو محدود است</string>
+    <string name="turbo_unavailable">توربو در دسترس نیست</string>
+    <string name="turbo_note_LOCAL_LOW_END">حافظهٔ این گوشی محدود است، پس توربو برای حفظ روان بودن غیرفعال شده است.</string>
+    <string name="turbo_note_PEER_NO_TURBO">توربو در گوشی مقابل خاموش است.</string>
+    <string name="turbo_note_PEER_LOW_END">منابع گوشی مقابل محدود است؛ از تنظیمات محافظه‌کارانه استفاده می‌شود.</string>
+    <string name="turbo_note_LINK_BLUETOOTH">پهنای باند بلوتوث محدودیت اصلی است؛ توربو نمی‌تواند آن را سریع‌تر کند.</string>
+    <string name="turbo_note_LINK_USB">حالت لوازم جانبی USB فقط یک کانال دارد؛ توربو تأثیر بیشتری ندارد.</string>
+    <string name="turbo_note_NONE"></string>
+
+    <!-- Discovery -->
+    <string name="disc_title">نزدیک شما</string>
+    <string name="disc_scanning">در حال جستجوی اطراف…</string>
+    <string name="disc_none">هنوز دستگاهی پیدا نشده است. از دوستتان بخواهید استارلین شیر را باز کند و «شروع جستجو» یا «دریافت» را بزند.</string>
+    <string name="disc_you">شما</string>
+    <string name="disc_drag_hint">یک دستگاه را به سمت خودتان بکشید یا روی آن بزنید</string>
+    <string name="disc_stop">توقف جستجو</string>
+    <string name="disc_selected">انتخاب‌شده: %s</string>
+    <string name="disc_choose_action">می‌خواهید چه کاری انجام دهید؟</string>
+    <string name="disc_via">از طریق %s</string>
+    <string name="disc_permission">استارلین برای یافتن گوشی‌ها از طریق وای‌فای دایرکت به مجوز «دستگاه‌های نزدیک» نیاز دارد. جستجو در شبکهٔ مشترک بدون آن هم کار می‌کند.</string>
+    <string name="disc_bt_off">بلوتوث خاموش است — جستجوی بلوتوث انجام نمی‌شود.</string>
+
+    <!-- Connect -->
+    <string name="connect_trying">در حال اتصال از طریق %s…</string>
+    <string name="connect_failed_NO_ROUTE">دسترسی به دستگاه ممکن نشد. مطمئن شوید هر دو گوشی نزدیک هم هستند و در حال جستجو هستند.</string>
+    <string name="connect_failed_WIFI_DIRECT_FAILED">اتصال وای‌فای دایرکت ناموفق بود. روشن بودن وای‌فای را بررسی کنید و دوباره تلاش کنید.</string>
+    <string name="connect_failed_BLUETOOTH_FAILED">اتصال بلوتوث ناموفق بود. دوباره جفت‌سازی را امتحان کنید.</string>
+    <string name="connect_failed_AUTH_FAILED">هویت دستگاه تأیید نشد. اتصال برای امنیت شما رد شد.</string>
+    <string name="connect_failed_TIMEOUT">دستگاه به‌موقع پاسخ نداد.</string>
+    <string name="connect_failed_NEEDS_PERMISSION">مجوزی برای این روش اتصال وجود ندارد.</string>
+
+    <!-- Messages -->
+    <string name="msg_DISCONNECTED">اتصال قطع شد</string>
+    <string name="msg_RECOVERING">اتصال قطع شد — در حال اتصال مجدد…</string>
+    <string name="msg_RECOVERED">دوباره متصل شد — ادامهٔ انتقال</string>
+    <string name="msg_RECOVERY_FAILED">اتصال مجدد ممکن نشد. می‌توانید بعداً انتقال را دوباره امتحان کنید.</string>
+    <string name="msg_PEER_WANTS_TO_RECEIVE">دستگاه مقابل آمادهٔ دریافت است — انتخاب کنید چه چیزی ارسال شود.</string>
+    <string name="msg_NOT_CONNECTED">ابتدا به یک دستگاه وصل شوید.</string>
+    <string name="msg_HISTORY_CLEARED">تاریخچه پاک شد</string>
+
+    <!-- Incoming -->
+    <string name="incoming_title">%s می‌خواهد برایتان فایل بفرستد</string>
+    <string name="incoming_device">%1$s · %2$s</string>
+    <string name="incoming_summary">%1$s · %2$s</string>
+    <string name="incoming_apps">شامل %s است — قبل از نصب هر چیزی از شما پرسیده می‌شود.</string>
+    <string name="incoming_space_ok">فضای آزاد: %s</string>
+    <string name="incoming_space_low">فضای کافی نیست: %1$s لازم است، %2$s آزاد است</string>
+    <string name="incoming_resume">ادامهٔ یک انتقال قطع‌شده</string>
+    <string name="incoming_fingerprint">شناسهٔ دستگاه %s</string>
+
+    <!-- Picker -->
+    <string name="pick_title">انتخاب موارد برای ارسال</string>
+    <string name="tab_photos">عکس‌ها</string>
+    <string name="tab_videos">ویدیوها</string>
+    <string name="tab_audio">صوتی</string>
+    <string name="tab_documents">اسناد</string>
+    <string name="tab_apps">برنامه‌ها</string>
+    <string name="tab_downloads">دانلودها</string>
+    <string name="tab_other">سایر فایل‌ها</string>
+    <string name="tab_folders">پوشه‌ها</string>
+    <string name="pick_search">جستجو</string>
+    <string name="pick_sort_name">نام</string>
+    <string name="pick_sort_size">حجم</string>
+    <string name="pick_sort_date">تاریخ</string>
+    <string name="pick_summary">%1$s انتخاب‌شده · %2$s</string>
+    <string name="pick_empty">هنوز چیزی اینجا نیست</string>
+    <string name="pick_loading">در حال بارگذاری…</string>
+    <string name="pick_media_permission">برای مرور عکس‌ها، ویدیوها و فایل‌های صوتی در اینجا، دسترسی بدهید.</string>
+    <string name="pick_browse_files">مرور فایل‌ها</string>
+    <string name="pick_browse_files_hint">انتخابگر فایل سیستم را باز می‌کند — به مجوز حافظه نیازی نیست.</string>
+    <string name="pick_browse_folder">انتخاب پوشه</string>
+    <string name="pick_browse_folder_hint">کل پوشه را با حفظ ساختار آن ارسال می‌کند.</string>
+    <string name="pick_downloads_hint">از پوشهٔ دانلودها انتخاب کنید.</string>
+    <string name="pick_added">%s اضافه شد</string>
+    <string name="pick_send_to">ارسال به %s</string>
+    <string name="pick_not_connected">متصل نیستید — فایل‌ها تا زمان اتصال انتخاب‌شده باقی می‌مانند.</string>
+    <string name="pick_selected_items">موارد انتخاب‌شده</string>
+    <string name="pick_system_apps">نمایش برنامه‌های سیستمی</string>
+
+    <!-- App transfer -->
+    <string name="app_detail_title">اشتراک‌گذاری برنامه</string>
+    <string name="app_version">نسخهٔ %1$s · %2$s</string>
+    <string name="app_splits">برنامهٔ چندبخشی (Split APK): بخش پایه + %d بخش (همه گنجانده می‌شوند)</string>
+    <string name="app_single">یک فایل APK</string>
+    <string name="app_data_toggle">داده</string>
+    <string name="app_data_desc">همهٔ فایل‌های مرتبط با برنامه را که اندروید اجازهٔ خواندنشان را به استارلین می‌دهد، شامل کن.</string>
+    <string name="app_will_include">منتقل می‌شود</string>
+    <string name="app_cannot_include">قابل انتقال نیست</string>
+    <string name="app_item_apk">بستهٔ نصبی (%s)</string>
+    <string name="app_item_obb">دادهٔ بازی OBB: %1$s فایل، %2$s</string>
+    <string name="app_item_media">فایل‌های Android/media: %1$s فایل، %2$s</string>
+    <string name="app_item_extra">فایل‌هایی که افزودید: %1$s فایل، %2$s</string>
+    <string name="app_add_extra">افزودن فایل‌های برنامه از یک پوشه…</string>
+    <string name="app_add_extra_hint">برای ذخیره‌های صادرشده یا پوشه‌های منابعی که در انتخابگر فایل می‌بینید، از این گزینه استفاده کنید.</string>
+    <string name="app_blocked">%s — توسط محافظت حافظهٔ اندروید مسدود شده است</string>
+    <string name="app_private_note">داده‌های خصوصی برنامه (حساب‌ها، تنظیمات، ذخیره‌های محلی) توسط اندروید درون خود برنامه محافظت می‌شوند. برای انتقال آن‌ها از پشتیبان‌گیری، ذخیرهٔ ابری یا قابلیت انتقال خود برنامه استفاده کنید.</string>
+    <string name="app_server_note">بازی‌ها و سرویس‌های آنلاین معمولاً پیشرفت را روی سرورهای خود نگه می‌دارند — برای بازیابی، در گوشی جدید وارد حساب شوید.</string>
+    <string name="app_total">مجموع %s</string>
+    <string name="app_add_to_selection">افزودن به انتخاب‌ها</string>
+    <string name="app_remove_from_selection">حذف از انتخاب‌ها</string>
+
+    <!-- Transfer screen -->
+    <string name="transfer_title">انتقال‌ها</string>
+    <string name="transfer_none">هنوز انتقالی انجام نشده است</string>
+    <string name="transfer_sending">در حال ارسال به %s</string>
+    <string name="transfer_receiving">در حال دریافت از %s</string>
+    <string name="transfer_waiting_accept">در انتظار پذیرش طرف مقابل…</string>
+    <string name="transfer_paused">متوقف شده</string>
+    <string name="transfer_recovering">در حال اتصال مجدد…</string>
+    <string name="transfer_completed">کامل شد</string>
+    <string name="transfer_completed_partial">با مشکلاتی کامل شد</string>
+    <string name="transfer_failed">ناموفق</string>
+    <string name="transfer_cancelled">لغو شد</string>
+    <string name="transfer_rejected">رد شد</string>
+    <string name="transfer_interrupted">قطع شد — قابل ادامه است</string>
+    <string name="transfer_files_progress">%1$s از %2$s فایل</string>
+    <string name="transfer_clear_finished">پاک کردن موارد پایان‌یافته</string>
+    <string name="transfer_report">گزارش</string>
+    <string name="transfer_report_ok">%s منتقل و تأیید شد (SHA-256)</string>
+    <string name="transfer_report_skipped">%s رد شد (از قبل موجود بود)</string>
+    <string name="transfer_report_failed">%s ناموفق بود</string>
+    <string name="transfer_received_apps">برنامه‌های دریافتی</string>
+    <string name="transfer_app_report">%1$s · بستهٔ نصبی ✓ · %2$s فایل اضافه</string>
+    <string name="transfer_app_inaccessible">گنجانده نشد: %s</string>
+    <string name="transfer_app_private">داده‌های خصوصی گنجانده نشد (محدودیت اندروید).</string>
+    <string name="reason_rejected">طرف مقابل نپذیرفت.</string>
+    <string name="reason_no_space">فضای ذخیره‌سازی گوشی گیرنده کافی نیست.</string>
+    <string name="reason_busy">دستگاه مقابل مشغول است.</string>
+    <string name="reason_timeout">به‌موقع پاسخی دریافت نشد.</string>
+    <string name="reason_cancelled_by_peer">توسط دستگاه مقابل لغو شد.</string>
+    <string name="reason_cancelled">لغو شد.</string>
+    <string name="reason_connection_lost">اتصال قطع شد.</string>
+    <string name="reason_integrity">بررسی صحت ناموفق بود؛ فایل کنار گذاشته شد.</string>
+    <string name="reason_source_error">فایل در گوشی فرستنده قابل خواندن نبود.</string>
+    <string name="reason_storage_error">فایل ذخیره نشد.</string>
+    <string name="reason_partial">برخی فایل‌ها منتقل نشدند.</string>
+
+    <!-- Install -->
+    <string name="install_need_permission">به استارلین اجازه دهید برنامه‌های دریافتی را نصب کند. اندروید برای هر نصب از شما تأیید می‌گیرد.</string>
+    <string name="install_checking">در حال بررسی بسته…</string>
+    <string name="install_waiting">نصب را در پنجرهٔ سیستم تأیید کنید</string>
+    <string name="install_ok">%s نصب شد</string>
+    <string name="install_failed">نصب ناموفق بود: %s</string>
+    <string name="install_aborted">نصب لغو شد</string>
+    <string name="install_problem_NO_BASE">فایل APK پایه موجود نیست.</string>
+    <string name="install_problem_NOT_AN_APK">یکی از فایل‌های دریافتی APK معتبر نیست.</string>
+    <string name="install_problem_PACKAGE_MISMATCH">بخش‌های APK متعلق به برنامه‌های مختلف هستند.</string>
+    <string name="install_problem_MISSING_SPLITS">بخش‌های لازم موجود نیست: %s</string>
+    <string name="install_problem_SDK_TOO_OLD">این برنامه به نسخهٔ جدیدتری از اندروید نیاز دارد.</string>
+    <string name="install_problem_UNREADABLE">بسته قابل خواندن نبود.</string>
+    <string name="install_obb_note">فایل‌های OBB در Download/Starlane ذخیره شدند. اندروید اجازه نمی‌دهد برنامه‌ها آن‌ها را خودکار در پوشهٔ برنامهٔ دیگر قرار دهند؛ اگر بازی به آن‌ها نیاز داشت، با یک مدیر فایل منتقلشان کنید.</string>
+
+    <!-- History -->
+    <string name="history_title">تاریخچه</string>
+    <string name="history_empty">انتقال‌های شما اینجا نمایش داده می‌شوند.</string>
+    <string name="history_clear">پاک کردن تاریخچه</string>
+    <string name="history_sent">ارسال‌شده به %s</string>
+    <string name="history_received">دریافت‌شده از %s</string>
+    <string name="history_avg">میانگین %s</string>
+
+    <!-- Devices -->
+    <string name="devices_title">دستگاه‌ها</string>
+    <string name="devices_empty">دستگاه‌هایی که به آن‌ها وصل می‌شوید اینجا نمایش داده می‌شوند.</string>
+    <string name="devices_favorites">برگزیده‌ها</string>
+    <string name="devices_recent">اخیر</string>
+    <string name="devices_last_seen">آخرین اتصال %s</string>
+    <string name="devices_transfers">%s انتقال</string>
+    <string name="devices_clear_recent">پاک کردن موارد اخیر</string>
+    <string name="devices_favorite">برگزیده</string>
+    <string name="devices_unfavorite">حذف از برگزیده‌ها</string>
+
+    <!-- USB -->
+    <string name="usb_title">انتقال با کابل USB</string>
+    <string name="usb_intro">دو گوشی را با کابل USB-C به USB-C، یا با مبدل OTG روی گوشی میزبان، به هم وصل کنید. این صفحه را در هر دو گوشی باز کنید.</string>
+    <string name="usb_host_support">میزبان USB (OTG): %s</string>
+    <string name="usb_accessory_support">حالت لوازم جانبی USB: %s</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <string name="usb_status_NO_USB_SUPPORT">این گوشی از حالت میزبان یا لوازم جانبی USB پشتیبانی نمی‌کند.</string>
+    <string name="usb_status_NOTHING_CONNECTED">هنوز گوشی‌ای روی کابل شناسایی نشده است.</string>
+    <string name="usb_status_DEVICE_ATTACHED">یک دستگاه وصل شده است — هنگام درخواست، دسترسی بدهید.</string>
+    <string name="usb_status_SWITCHING">در حال تغییر گوشی مقابل به حالت لوازم جانبی…</string>
+    <string name="usb_status_ACCESSORY_ATTACHED">به‌عنوان لوازم جانبی شناسایی شد — هنگام درخواست، دسترسی بدهید.</string>
+    <string name="usb_status_CONNECTED">کابل متصل است</string>
+    <string name="usb_status_PEER_NOT_AOA">دستگاه متصل از حالت لوازم جانبی اندروید پشتیبانی نمی‌کند.</string>
+    <string name="usb_status_PERMISSION_DENIED">دسترسی USB رد شد.</string>
+    <string name="usb_status_FAILED">اتصال USB ناموفق بود (%s).</string>
+    <string name="usb_fallback">اگر کابل وصل نمی‌شود، از انتقال بی‌سیم استفاده کنید — معمولاً سریع‌تر هم هست.</string>
+    <string name="usb_use_wireless">استفاده از بی‌سیم</string>
+    <string name="usb_retry">بررسی دوباره</string>
+
+    <!-- Settings -->
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_profile">نمایه</string>
+    <string name="settings_transfer">انتقال</string>
+    <string name="settings_appearance">ظاهر</string>
+    <string name="settings_language">زبان</string>
+    <string name="lang_system">پیش‌فرض سیستم</string>
+    <string name="lang_en">English (انگلیسی)</string>
+    <string name="lang_fa">فارسی</string>
+    <string name="settings_theme">پوسته</string>
+    <string name="theme_system">سیستم</string>
+    <string name="theme_light">روشن</string>
+    <string name="theme_dark">تیره</string>
+    <string name="settings_reduce_motion">کاهش پویانمایی‌ها</string>
+    <string name="settings_reduce_motion_desc">ستاره‌های کمتر و بدون پویانمایی مدار. در گوشی‌های کم‌حافظه به‌طور خودکار فعال می‌شود.</string>
+    <string name="settings_conflict">وقتی فایل از قبل وجود دارد</string>
+    <string name="conflict_RENAME">نگه‌داشتن هر دو (تغییر نام)</string>
+    <string name="conflict_OVERWRITE">بازنویسی</string>
+    <string name="conflict_SKIP">رد کردن فایل‌های یکسان</string>
+    <string name="settings_save_location">محل ذخیره</string>
+    <string name="settings_save_default">Download/Starlane</string>
+    <string name="settings_save_choose">انتخاب پوشه</string>
+    <string name="settings_save_reset">استفاده از پیش‌فرض</string>
+    <string name="settings_capabilities">قابلیت‌های دستگاه</string>
+    <string name="cap_wifi_direct">وای‌فای دایرکت</string>
+    <string name="cap_wifi_aware">سخت‌افزار Wi-Fi Aware</string>
+    <string name="cap_bluetooth">بلوتوث</string>
+    <string name="cap_usb_host">میزبان USB</string>
+    <string name="cap_usb_accessory">لوازم جانبی USB</string>
+    <string name="cap_class">ردهٔ دستگاه</string>
+    <string name="cap_low_end">نمایهٔ کم‌حافظه</string>
+    <string name="cap_standard">استاندارد</string>
+    <string name="cap_cpu">%1$s هسته · %2$s رم</string>
+    <string name="cap_cipher">سرعت رمزنگاری (اندازه‌گیری‌شده)</string>
+    <string name="cap_supported">پشتیبانی می‌شود</string>
+    <string name="cap_unsupported">پشتیبانی نمی‌شود</string>
+    <string name="cap_aware_note">Wi-Fi Aware شناسایی شد، اما انتقال‌ها از وای‌فای دایرکت یا شبکهٔ محلی استفاده می‌کنند که در گوشی‌های بسیار بیشتری پشتیبانی می‌شوند.</string>
+    <string name="settings_about">درباره</string>
+    <string name="settings_version">نسخهٔ %s</string>
+    <string name="settings_open_source">کد منبع در گیت‌هاب</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_transfer">پیشرفت انتقال</string>
+    <string name="notif_channel_incoming">درخواست‌های دریافتی</string>
+    <string name="notif_channel_done">انتقال‌های پایان‌یافته</string>
+    <string name="notif_sending_to">در حال ارسال به %s</string>
+    <string name="notif_receiving_from">در حال دریافت از %s</string>
+    <string name="notif_connected_to">متصل به %s</string>
+    <string name="notif_session_open">نشست باز است — آمادهٔ اشتراک‌گذاری</string>
+    <string name="notif_waiting_title">در انتظار دریافت</string>
+    <string name="notif_waiting_text">گوشی شما برای کاربران نزدیک استارلین قابل مشاهده است</string>
+    <string name="notif_done_ok">انتقال کامل شد</string>
+    <string name="notif_done_partial">انتقال با مشکلاتی به پایان رسید</string>
+</resources>
