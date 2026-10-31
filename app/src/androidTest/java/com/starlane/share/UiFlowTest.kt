@@ -5,6 +5,7 @@ import android.view.View
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -36,9 +37,18 @@ class UiFlowTest {
         perms.forEach { p -> runCatching { instr.uiAutomation.grantRuntimePermission(ctx.packageName, p) } }
     }
 
+    /** First launch on a cold emulator can take several seconds before setContent attaches. */
+    private fun awaitCompose() {
+        compose.waitUntil(20_000) {
+            runCatching { compose.onAllNodes(isRoot()).fetchSemanticsNodes().isNotEmpty() }.getOrDefault(false)
+        }
+    }
+
     @Test
     fun onboardingCreatesUsernameAndShowsHome() {
         ActivityScenario.launch(MainActivity::class.java).use {
+            awaitCompose()
+            compose.waitUntilAtLeastOneExists(hasText("Welcome aboard"), 10_000)
             compose.onNodeWithText("Welcome aboard").assertIsDisplayed()
             compose.onNodeWithText("Username").performTextInput("Nova")
             compose.onNodeWithText("Start sharing").performScrollTo().performClick()
@@ -52,6 +62,8 @@ class UiFlowTest {
     fun turboAndHistoryAreReachable() {
         Prefs(ctx).username = "Orion"
         ActivityScenario.launch(MainActivity::class.java).use {
+            awaitCompose()
+            compose.waitUntilAtLeastOneExists(hasText("Turbo Mode"), 10_000)
             compose.onNodeWithText("Turbo Mode").performScrollTo().assertIsDisplayed()
             compose.onNodeWithText("History").performScrollTo().performClick()
             // History loads on a background thread; wait for the real (empty) result.
@@ -65,6 +77,8 @@ class UiFlowTest {
         Prefs(ctx).language = "fa"
         try {
             ActivityScenario.launch(MainActivity::class.java).use { sc ->
+                awaitCompose()
+                compose.waitUntilAtLeastOneExists(hasText("شروع جستجو"), 10_000)
                 compose.onNodeWithText("شروع جستجو").assertIsDisplayed()
                 compose.onNodeWithText("حالت توربو").performScrollTo().assertIsDisplayed()
                 sc.onActivity { a -> assertEquals(View.LAYOUT_DIRECTION_RTL, a.window.decorView.layoutDirection) }

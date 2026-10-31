@@ -43,7 +43,8 @@ class OnDeviceEngineTest {
     private class Node(name: String, root: File, bench: Map<CipherSuite, Int>) : AutoCloseable {
         val identity = Identity.generate()
         val inbox = File(root, "inbox").apply { mkdirs() }
-        val server = ServerSocket(0, 10, InetAddress.getLoopbackAddress())
+        // Android's InetAddress.getLoopbackAddress() is IPv6 ::1; clients dial 127.0.0.1, so bind IPv4 explicitly.
+        val server = ServerSocket(0, 10, InetAddress.getByName("127.0.0.1"))
         val node = TransferNode(
             identity, Profile(name, "", "test", 0, "android"),
             FileSystemStorage(inbox, ResumeStore(File(root, "resume"))),

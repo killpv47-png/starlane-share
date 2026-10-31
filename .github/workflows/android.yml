@@ -113,9 +113,10 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: |
-            ./gradlew :app:connectedDebugAndroidTest --stacktrace
+            ./gradlew :app:connectedDebugAndroidTest --stacktrace && echo 0 > test-status || echo 1 > test-status
             adb logcat -d -s StarlaneBench:I > bench-logcat.txt || true
-            API_LEVEL=${{ matrix.api }} ./ci/device-metrics.sh
+            API_LEVEL=${{ matrix.api }} ./ci/device-metrics.sh || true
+            exit $(cat test-status)
       - name: Publish device results to job summary
         if: always()
         run: |
