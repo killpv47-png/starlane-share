@@ -2,29 +2,38 @@ package com.starlane.share
 
 import android.content.Context
 import android.view.View
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.starlane.share.ui.Perms
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-/** UI flows on a real Android runtime: onboarding, home, settings, Persian RTL localization. */
+/** UI flows on a real Android runtime: onboarding, home, history, Persian RTL localization. */
+@OptIn(ExperimentalTestApi::class)
 @RunWith(AndroidJUnit4::class)
 class UiFlowTest {
     @get:Rule val compose = createEmptyComposeRule()
-    private val ctx: Context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val instr = InstrumentationRegistry.getInstrumentation()
+    private val ctx: Context = instr.targetContext
 
     @Before
     fun reset() {
         ctx.getSharedPreferences("starlane", Context.MODE_PRIVATE).edit().clear().commit()
+        // Pre-grant what the app may ask for, so no system dialog covers the Compose window.
+        val perms = Perms.notifications() + Perms.legacyWrite() + Perms.discovery() + Perms.bluetooth() + Perms.media()
+        perms.forEach { p -> runCatching { instr.uiAutomation.grantRuntimePermission(ctx.packageName, p) } }
     }
 
     @Test
@@ -32,20 +41,21 @@ class UiFlowTest {
         ActivityScenario.launch(MainActivity::class.java).use {
             compose.onNodeWithText("Welcome aboard").assertIsDisplayed()
             compose.onNodeWithText("Username").performTextInput("Nova")
-            compose.onNodeWithText("Start sharing").performClick()
-            compose.onNodeWithText("Start Scanning").assertIsDisplayed()
+            compose.onNodeWithText("Start sharing").performScrollTo().performClick()
+            compose.waitUntilAtLeastOneExists(hasText("Start Scanning"), 5_000)
             compose.onNodeWithText("Hi, Nova").assertIsDisplayed()
             assertEquals("Nova", Prefs(ctx).username)
         }
     }
 
     @Test
-    fun settingsAndTurboAreReachable() {
+    fun turboAndHistoryAreReachable() {
         Prefs(ctx).username = "Orion"
         ActivityScenario.launch(MainActivity::class.java).use {
-            compose.onNodeWithText("Turbo Mode").assertIsDisplayed()
-            compose.onNodeWithText("History").performClick()
-            compose.onNodeWithText("Your transfers will appear here.").assertIsDisplayed()
+            compose.onNodeWithText("Turbo Mode").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithText("History").performScrollTo().performClick()
+            // History loads on a background thread; wait for the real (empty) result.
+            compose.waitUntilAtLeastOneExists(hasText("Your transfers will appear here."), 5_000)
         }
     }
 
@@ -53,10 +63,14 @@ class UiFlowTest {
     fun persianLanguageUsesRtlLayout() {
         Prefs(ctx).username = "سارا"
         Prefs(ctx).language = "fa"
-        ActivityScenario.launch(MainActivity::class.java).use { sc ->
-            compose.onNodeWithText("شروع جستجو").assertIsDisplayed()
-            compose.onNodeWithText("حالت توربو").assertIsDisplayed()
-            sc.onActivity { a -> assertEquals(View.LAYOUT_DIRECTION_RTL, a.window.decorView.layoutDirection) }
+        try {
+            ActivityScenario.launch(MainActivity::class.java).use { sc ->
+                compose.onNodeWithText("شروع جستجو").assertIsDisplayed()
+                compose.onNodeWithText("حالت توربو").performScrollTo().assertIsDisplayed()
+                sc.onActivity { a -> assertEquals(View.LAYOUT_DIRECTION_RTL, a.window.decorView.layoutDirection) }
+            }
+        } finally {
+            Prefs(ctx).language = ""
         }
     }
 }
